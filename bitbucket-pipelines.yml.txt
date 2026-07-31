@@ -1,0 +1,20 @@
+image: hashicorp/terraform:1.7.0
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: 'Terraform Init & Plan'
+          script:
+            - terraform init
+            - terraform validate
+            - terraform plan -out=tfplan
+          artifacts:
+            - tfplan
+
+      - step:
+          name: 'Terraform Apply (Deploy to Azure)'
+          trigger: manual
+          script:
+            - terraform init
+            - terraform apply -auto-approve tfplan
