@@ -1,20 +1,25 @@
 image: hashicorp/terraform:1.7.0
 
 pipelines:
-  branches:
-    main:
+  # ------------------------------------------------------------------
+  # 1. Runs automatically on Pull Requests (Validation & Dry Run)
+  # ------------------------------------------------------------------
+  pull-requests:
+    '**':
       - step:
-          name: 'Terraform Init & Plan'
+          name: 'PR Check: Terraform Init & Plan'
           script:
             - terraform init
             - terraform validate
-            - terraform plan -out=tfplan
-          artifacts:
-            - tfplan
+            - terraform plan
 
+  # ------------------------------------------------------------------
+  # 2. Runs ONLY when PR is Approved and Merged into 'main'
+  # ------------------------------------------------------------------
+  branches:
+    main:
       - step:
-          name: 'Terraform Apply (Deploy to Azure)'
-          trigger: manual
+          name: 'Deploy: Terraform Apply to Azure'
           script:
             - terraform init
-            - terraform apply -auto-approve tfplan
+            - terraform apply -auto-approve
