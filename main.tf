@@ -1,28 +1,58 @@
 # ------------------------------------------------------------------
-# Root Orchestrator: Invoking Enterprise Modules
+# State Migration Blocks (Tells Terraform code moved into modules)
 # ------------------------------------------------------------------
 
-# 1. Call Networking Module (Hub & Spoke VNets)
-module "networking" {
-  source   = "./modules/networking"
-  location = var.location
-  tags     = var.tags
+moved {
+  from = azurerm_resource_group.hub
+  to   = module.networking.azurerm_resource_group.hub
 }
 
-# 2. Call Compute Module (Zero Public IP VM & NSGs)
-module "compute" {
-  source              = "./modules/compute"
-  location            = module.networking.spoke_location
-  resource_group_name = module.networking.spoke_resource_group_name
-  web_subnet_id       = module.networking.web_subnet_id
-  tags                = var.tags
+moved {
+  from = azurerm_resource_group.spoke
+  to   = module.networking.azurerm_resource_group.spoke
 }
 
-# 3. Call Storage Module (Storage Account & Private Endpoint)
-module "storage" {
-  source              = "./modules/storage"
-  location            = module.networking.spoke_location
-  resource_group_name = module.networking.spoke_resource_group_name
-  db_subnet_id        = module.networking.db_subnet_id
-  tags                = var.tags
+moved {
+  from = azurerm_virtual_network.hub
+  to   = module.networking.azurerm_virtual_network.hub
+}
+
+moved {
+  from = azurerm_virtual_network.spoke
+  to   = module.networking.azurerm_virtual_network.spoke
+}
+
+moved {
+  from = azurerm_subnet.shared_services
+  to   = module.networking.azurerm_subnet.shared_services
+}
+
+moved {
+  from = azurerm_subnet.azure_firewall
+  to   = module.networking.azurerm_subnet.azure_firewall
+}
+
+moved {
+  from = azurerm_subnet.gateway
+  to   = module.networking.azurerm_subnet.gateway
+}
+
+moved {
+  from = azurerm_subnet.web
+  to   = module.networking.azurerm_subnet.web
+}
+
+moved {
+  from = azurerm_subnet.database
+  to   = module.networking.azurerm_subnet.database
+}
+
+moved {
+  from = azurerm_virtual_network_peering.hub_to_spoke
+  to   = module.networking.azurerm_virtual_network_peering.hub_to_spoke
+}
+
+moved {
+  from = azurerm_virtual_network_peering.spoke_to_hub
+  to   = module.networking.azurerm_virtual_network_peering.spoke_to_hub
 }
