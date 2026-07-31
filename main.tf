@@ -91,61 +91,61 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   allow_forwarded_traffic      = true
 }
 
-# ==================================================================
-# 5. BULK IMPORT BLOCKS (Connects existing Portal resources to code!)
-# ==================================================================
+# # ==================================================================
+# # 5. BULK IMPORT BLOCKS (Connects existing Portal resources to code!)
+# # ==================================================================
 
-import {
-  to = azurerm_resource_group.hub
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus"
-}
+# import {
+#   to = azurerm_resource_group.hub
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus"
+# }
 
-import {
-  to = azurerm_resource_group.spoke
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus"
-}
+# import {
+#   to = azurerm_resource_group.spoke
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus"
+# }
 
-import {
-  to = azurerm_virtual_network.hub
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus"
-}
+# import {
+#   to = azurerm_virtual_network.hub
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus"
+# }
 
-import {
-  to = azurerm_virtual_network.spoke
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus"
-}
+# import {
+#   to = azurerm_virtual_network.spoke
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus"
+# }
 
-import {
-  to = azurerm_subnet.shared_services
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/SharedServicesSubnet"
-}
+# import {
+#   to = azurerm_subnet.shared_services
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/SharedServicesSubnet"
+# }
 
-import {
-  to = azurerm_subnet.azure_firewall
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/AzureFirewallSubnet"
-}
+# import {
+#   to = azurerm_subnet.azure_firewall
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/AzureFirewallSubnet"
+# }
 
-import {
-  to = azurerm_subnet.gateway
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/GatewaySubnet"
-}
+# import {
+#   to = azurerm_subnet.gateway
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/subnets/GatewaySubnet"
+# }
 
-import {
-  to = azurerm_subnet.web
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/subnets/WebSubnet"
-}
+# import {
+#   to = azurerm_subnet.web
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/subnets/WebSubnet"
+# }
 
-import {
-  to = azurerm_subnet.database
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/subnets/DatabaseSubnet"
-}
+# import {
+#   to = azurerm_subnet.database
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/subnets/DatabaseSubnet"
+# }
 
-import {
-  to = azurerm_virtual_network_peering.hub_to_spoke
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/virtualNetworkPeerings/peer-hub-to-spoke1"
-}
+# import {
+#   to = azurerm_virtual_network_peering.hub_to_spoke
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-hub-connectivity-eastus/providers/Microsoft.Network/virtualNetworks/vnet-hub-eastus/virtualNetworkPeerings/peer-hub-to-spoke1"
+# }
 
-import {
-  to = azurerm_virtual_network_peering.spoke_to_hub
-  id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/virtualNetworkPeerings/peer-spoke1-to-hub"
-}
+# import {
+#   to = azurerm_virtual_network_peering.spoke_to_hub
+#   id = "/subscriptions/17c3aa03-3446-4356-b8df-227a9834823f/resourceGroups/rg-spoke-app1-eastus/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app1-eastus/virtualNetworkPeerings/peer-spoke1-to-hub"
+# }
