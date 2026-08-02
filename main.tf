@@ -9,15 +9,15 @@ module "networking" {
   tags     = var.tags
 }
 
-# 2. Call Compute Module (Zero Public IP VM & NSGs)
-module "compute" {
-  source              = "./modules/compute"
-  location            = module.networking.spoke_location
-  resource_group_name = module.networking.spoke_resource_group_name
-  web_subnet_id       = module.networking.web_subnet_id
-  admin_password      = var.admin_password
-  tags                = var.tags
-}
+# 2. Call Compute Module (Skipped for now)
+# module "compute" {
+#   source              = "./modules/compute"
+#   location            = module.networking.spoke_location
+#   resource_group_name = module.networking.spoke_resource_group_name
+#   web_subnet_id       = module.networking.web_subnet_id
+#   admin_password      = var.admin_password
+#   tags                = var.tags
+# }
 
 # 3. Call Storage Module (Storage Account & Private Endpoint)
 module "storage" {
