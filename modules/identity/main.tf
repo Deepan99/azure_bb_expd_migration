@@ -1,40 +1,20 @@
 # ------------------------------------------------------------------
-# 1. Enterprise Entra ID Security Groups
+# 1. Reference Pre-Created Entra ID Security Groups (Data Sources)
 # ------------------------------------------------------------------
-resource "azuread_group" "cloud_admins" {
-  display_name     = "sg-cloud-admins"
-  security_enabled = true
-  description      = "Enterprise Cloud Administrators Group"
+data "azuread_group" "cloud_admins" {
+  display_name = "sg-cloud-admins"
 }
 
-resource "azuread_group" "network_admins" {
-  display_name     = "sg-network-admins"
-  security_enabled = true
-  description      = "Enterprise Network Operations & SRE Group"
+data "azuread_group" "network_admins" {
+  display_name = "sg-network-admins"
 }
 
-resource "azuread_group" "sec_ops" {
-  display_name     = "sg-sec-ops"
-  security_enabled = true
-  description      = "Enterprise InfoSec & Security Operations Group"
+data "azuread_group" "sec_ops" {
+  display_name = "sg-sec-ops"
 }
 
-resource "azuread_group" "developers" {
-  display_name     = "sg-developers"
-  security_enabled = true
-  description      = "Enterprise Application Developers Group"
-}
-
-resource "azuread_group" "iam_admins" {
-  display_name     = "sg-iam-admins"
-  security_enabled = true
-  description      = "Enterprise IAM & Access Control Group"
-}
-
-resource "azuread_group" "audit_compliance" {
-  display_name     = "sg-audit-compliance"
-  security_enabled = true
-  description      = "Enterprise Audit & Compliance Group"
+data "azuread_group" "developers" {
+  display_name = "sg-developers"
 }
 
 # ------------------------------------------------------------------
@@ -55,23 +35,23 @@ data "azurerm_subscription" "primary" {}
 resource "azurerm_role_assignment" "cloud_admins_contributor" {
   scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Contributor"
-  principal_id         = azuread_group.cloud_admins.object_id
+  principal_id         = data.azuread_group.cloud_admins.object_id
 }
 
 resource "azurerm_role_assignment" "network_admins_contributor" {
   scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Network Contributor"
-  principal_id         = azuread_group.network_admins.object_id
+  principal_id         = data.azuread_group.network_admins.object_id
 }
 
 resource "azurerm_role_assignment" "sec_ops_reader" {
   scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Security Reader"
-  principal_id         = azuread_group.sec_ops.object_id
+  principal_id         = data.azuread_group.sec_ops.object_id
 }
 
 resource "azurerm_role_assignment" "developers_reader" {
   scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Reader"
-  principal_id         = azuread_group.developers.object_id
+  principal_id         = data.azuread_group.developers.object_id
 }
