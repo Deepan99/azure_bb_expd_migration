@@ -31,7 +31,8 @@ module "storage" {
 
 # 4. Call Identity Module (Security Groups, Managed Identity, RBAC Roles)
 module "identity" {
-  source   = "./modules/identity"
-  location = var.location
-  tags     = var.tags
+  source              = "./modules/identity"
+  location            = var.location
+  resource_group_name = module.networking.spoke_resource_group_name
+  tags                = var.tags
 }
