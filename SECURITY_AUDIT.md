@@ -13,7 +13,7 @@
 **Issue:** Hardcoded admin password exposed in `variables.tf`
 ```hcl
 variable "admin_password" {
-  default     = "EnterpriseP@ss2026!"  # EXPOSED IN PUBLIC REPO
+  default     = "EXPOSED_PASSWORD"  # EXPOSED IN PUBLIC REPO
   sensitive   = true
 }
 ```
@@ -62,7 +62,7 @@ credential.json
 **Before:**
 ```hcl
 variable "admin_password" {
-  default = "EnterpriseP@ss2026!"  # EXPOSED
+  default = "EXPOSED_PASSWORD"  # EXPOSED
 }
 ```
 *Note: Password has been redacted in this document*
