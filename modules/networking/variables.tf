@@ -1,2 +1,9 @@
-variable "location" { type = string }
-variable "tags" { type = map(string) }
+variable "location" {
+  type        = string
+  description = "Azure region for resources"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Resource tags"
+}

@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.90.0"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 2.47.0"
+    }
   }
 
   # Azure Storage State Backend
@@ -19,3 +23,5 @@ terraform {
 provider "azurerm" {
   features {}
 }
+
+provider "azuread" {}
