@@ -78,3 +78,20 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
 }
+
+# ------------------------------------------------------------------
+# Enterprise Resource Locks (CanNotDelete Protection)
+# ------------------------------------------------------------------
+resource "azurerm_management_lock" "hub_lock" {
+  name       = "lock-hub-no-delete"
+  scope      = azurerm_resource_group.hub.id
+  lock_level = "CanNotDelete"
+  notes      = "Enterprise Guardrail: Blocks accidental deletion of Hub Infrastructure"
+}
+
+resource "azurerm_management_lock" "spoke_lock" {
+  name       = "lock-spoke-no-delete"
+  scope      = azurerm_resource_group.spoke.id
+  lock_level = "CanNotDelete"
+  notes      = "Enterprise Guardrail: Blocks accidental deletion of Spoke Infrastructure"
+}
