@@ -51,9 +51,9 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
   name                            = "vm-web-spoke1"
   resource_group_name             = var.resource_group_name
   location                        = var.location
-  size                            = "Standard_B1s"
+  size                            = "Standard_B2s"
   admin_username                  = "azureadmin"
-  admin_password                  = "EnterpriseP@ss2026!"
+  admin_password                  = var.admin_password
   disable_password_authentication = false
   tags                            = var.tags
 
