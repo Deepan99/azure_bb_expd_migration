@@ -17,6 +17,7 @@ variable "admin_password" {
   sensitive   = true
 }
 ```
+*Note: Password has been redacted in this document, but was exposed in git history*
 
 **Risk Level:** CRITICAL
 - Password visible in git history
@@ -64,6 +65,7 @@ variable "admin_password" {
   default = "EnterpriseP@ss2026!"  # EXPOSED
 }
 ```
+*Note: Password has been redacted in this document*
 
 **After:**
 ```hcl
@@ -158,7 +160,7 @@ Recommended Setup:
 ## Security Checklist
 
 ### Immediate Actions (URGENT)
-- [ ] Change the exposed "EnterpriseP@ss2026!" password in Azure
+- [ ] Change the exposed password in Azure (see git history for original)
 - [ ] Rotate all related credentials and keys
 - [ ] Review and clean git history if possible
 - [ ] Audit all Azure resources for unauthorized access
