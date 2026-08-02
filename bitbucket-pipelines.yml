@@ -1,25 +1,27 @@
 image: hashicorp/terraform:1.7.0
 
 pipelines:
-  # ------------------------------------------------------------------
-  # 1. Runs automatically on Pull Requests (Validation & Dry Run)
-  # ------------------------------------------------------------------
+  # 1. Runs on Pull Requests using Zero-Secret OIDC Token
   pull-requests:
     '**':
       - step:
-          name: 'PR Check: Terraform Init & Plan'
+          name: 'PR Check: Zero-Secret OIDC Terraform Plan'
+          oidc: true
           script:
+            - export ARM_USE_OIDC=true
+            - export ARM_OIDC_TOKEN=$BITBUCKET_STEP_OIDC_TOKEN
             - terraform init
             - terraform validate
             - terraform plan
 
-  # ------------------------------------------------------------------
-  # 2. Runs ONLY when PR is Approved and Merged into 'main'
-  # ------------------------------------------------------------------
+  # 2. Runs on Merges to main using Zero-Secret OIDC Token
   branches:
     main:
       - step:
-          name: 'Deploy: Terraform Apply to Azure'
+          name: 'Deploy: Zero-Secret OIDC Terraform Apply'
+          oidc: true
           script:
+            - export ARM_USE_OIDC=true
+            - export ARM_OIDC_TOKEN=$BITBUCKET_STEP_OIDC_TOKEN
             - terraform init
             - terraform apply -auto-approve
