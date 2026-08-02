@@ -34,4 +34,4 @@ module "identity" {
   source   = "./modules/identity"
   location = var.location
   tags     = var.tags
-}
+}
