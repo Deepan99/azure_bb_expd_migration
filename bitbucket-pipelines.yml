@@ -8,6 +8,9 @@ pipelines:
           oidc: true
           script:
             - export ARM_USE_OIDC=true
+            - export ARM_CLIENT_ID=$ARM_CLIENT_ID
+            - export ARM_TENANT_ID=$ARM_TENANT_ID
+            - export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
             - export ARM_OIDC_TOKEN=$BITBUCKET_STEP_OIDC_TOKEN
             - terraform init
             - terraform apply -auto-approve
